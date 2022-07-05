@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developers aliance</title>
     <link rel="stylesheet" href="styles/css/style.css">
+    <link rel="stylesheet" href="styles/css/reset.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>

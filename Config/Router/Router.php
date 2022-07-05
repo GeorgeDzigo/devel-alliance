@@ -1,31 +1,71 @@
 <?php
 
-class Route
+class Router
 {
-    /**
-     * Available methods
-     */ 
-    protected $methods = [
-        'get',
-        'post'
-    ];
+    private $request;
+    private $supportedHttpMethods = array(
+        "GET",
+        "POST"
+    );
 
-    protected $GET = 0;
-    protected $POST = 1;
+    function __construct(IRequest $request)
+    {
+        $this->request = $request;
+    }
 
-    /**
-     * Get method
-     */ 
-    public function get($uri, $callback) {
-        $this->route($this->methods[$this->GET], $uri, $callback);
+    function __call($name, $args)
+    {
+        list($route, $method) = $args;
+
+        if (!in_array(strtoupper($name), $this->supportedHttpMethods)) {
+            $this->invalidMethodHandler();
+        }
+
+        $this->{strtolower($name)}[$this->formatRoute($route)] = $method;
     }
 
     /**
-     * Main method
-     */ 
-    protected function route($method, $uri, $callback) {
-        if($method == $this->methods[$this->POST])
-            $callback($_POST);
-        $callback();
+     * Removes trailing forward slashes from the right of the route.
+     * @param route (string)
+     */
+    private function formatRoute($route)
+    {
+        $result = rtrim($route, '/');
+        if ($result === '') {
+            return '/';
+        }
+        return $result;
+    }
+
+    private function invalidMethodHandler()
+    {
+        header("{$this->request->serverProtocol} 405 Method Not Allowed");
+    }
+
+    private function defaultRequestHandler()
+    {
+        header("{$this->request->serverProtocol} 404 Not Found");
+    }
+
+    /**
+     * Resolves a route
+     */
+    function resolve()
+    {
+        $methodDictionary = $this->{strtolower($this->request->requestMethod)};
+        $formatedRoute = $this->formatRoute($this->request->requestUri);
+        $method = $methodDictionary[$formatedRoute];
+
+        if (is_null($method)) {
+            $this->defaultRequestHandler();
+            return;
+        }
+
+        echo call_user_func_array($method, array($this->request));
+    }
+
+    function __destruct()
+    {
+        $this->resolve();
     }
 }
