@@ -1,5 +1,6 @@
 @form-background-color: #eceef1;
 @text-success: #007bff;
+@success: #4bd66b;
 
 .form {
     &-wrapper {
@@ -77,5 +78,30 @@
 
     li {
         color: red;
+    }
+}
+
+.success {
+    &-wrapper {
+        width: 100%;
+        height: 100%;  
+    }
+
+    &-box {
+        margin: 0 auto;
+        margin-top: 15%;
+        width: 60%;
+        height: 300px;
+        text-align: center;
+        background-color: @success;
+        border-radius: 4px;
+    }
+
+    &-message {
+        color: white;
+        font-size: 25px;
+        top: 100px;
+        display: inline-block;
+        margin-top: 14%;
     }
 }

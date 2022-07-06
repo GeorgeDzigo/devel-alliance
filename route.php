@@ -1,15 +1,43 @@
 <?php
+session_start();
+
 include 'Config/Router/Router.php';
 include 'Config/Requests/Request.php';
+include 'Config/Models/User.php';
 
 $root = $_SERVER['DOCUMENT_ROOT'];
 
-$router = new Router(new Request);
+$route = new Router(new Request);
 
-$router->get('/', function() use($root) {
+$route->get('/', function () use ($root) {
     include 'pages/signup.php';
 });
 
-$router->post('/sign-up', function($request) {
-    return json_encode($_POST);
+$route->post('/setname', function() {
+    $_SESSION['firstname'] = $_POST['firstname'];
+});
+
+$route->get('/welcome', function () {
+    if (isset($_SESSION['firstname'])) {
+        $name = $_SESSION['firstname'];
+        include 'pages/welcome.php';
+    }
+
+    return header("HTTP/1.0 404 Not Found");
+});
+
+$route->post('/sign-up', function ($request) {
+    $user = new User();
+    $data = [
+        'firstname' => $_POST['firstname'],
+        'lastname' => $_POST['lastname'],
+        'email' => $_POST['email'],
+        'password' => $_POST['password']
+    ];
+
+    if ($res = $user->create($data)) {
+        return $res;
+    }
+
+    return header("HTTP/1.0 500 Internal Error");
 });

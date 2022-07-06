@@ -63,3 +63,23 @@
 .error-holder li {
   color: red;
 }
+.success-wrapper {
+  width: 100%;
+  height: 100%;
+}
+.success-box {
+  margin: 0 auto;
+  margin-top: 15%;
+  width: 60%;
+  height: 300px;
+  text-align: center;
+  background-color: #4bd66b;
+  border-radius: 4px;
+}
+.success-message {
+  color: white;
+  font-size: 25px;
+  top: 100px;
+  display: inline-block;
+  margin-top: 14%;
+}

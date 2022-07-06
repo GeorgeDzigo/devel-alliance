@@ -106,17 +106,17 @@ function emailValidation(email, name) {
 }
 
 function passwordValidation(password, repPass) {
-  if(password != repPass) {
+  if (password != repPass) {
     return {
       valid: false,
-      error: "Passwords Doesn\'t match "
-    }
+      error: "Passwords Doesn't match ",
+    };
   }
-  
+
   return {
     valid: true,
-    error: ""
-  }
+    error: "",
+  };
 }
 
 function validationCheck(validation, prop) {
@@ -141,11 +141,12 @@ function displayErrors(errorInputs) {
       .css("outline-color", "red")
       .css("outline-style", "groove");
 
-    let errorHolder = errorInput.element.parent(".input-wrapper").find(".error-holder");
-    $(errorInput.errors).each(function(_, error) {
+    let errorHolder = errorInput.element
+      .parent(".input-wrapper")
+      .find(".error-holder");
+    $(errorInput.errors).each(function (_, error) {
       errorHolder.append("<li>" + error + "</li>");
     });
-
   });
 }
 
@@ -159,11 +160,19 @@ function hideErrors() {
 function prepareData(datas) {
   let prepareData = {};
 
-  $(datas).each(function(_, data)  {
+  $(datas).each(function (_, data) {
     prepareData[data.name] = data.element.val();
   });
 
   return prepareData;
+}
+
+function setName(firstname) {
+  $.ajax({
+    type: 'POST',
+    url: '/setname',
+    data: {firstname: firstname}
+  })
 }
 
 $("#sign-up").submit(function (e) {
@@ -180,7 +189,6 @@ $("#sign-up").submit(function (e) {
     });
   });
 
-  
   if (errors.length != 0) {
     displayErrors(errors);
   } else {
@@ -191,7 +199,14 @@ $("#sign-up").submit(function (e) {
       url: "/sign-up",
       data: dataTosend,
       success: function (data, text) {
-        console.log(data, text);
+        if (data) {
+          let firstname = inputs[0].element.val();
+          alert("Hello " + firstname);
+          setName(firstname);
+          window.location.replace("http://127.0.0.1:8000/welcome");
+        } else {
+          alert("Something went wrong");
+        }
       },
     });
   }
