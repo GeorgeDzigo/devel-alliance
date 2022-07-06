@@ -4,12 +4,12 @@
 }
 .form-container {
   width: 500px;
-  height: 560px;
-  margin-left: 32%;
-  margin-top: 10%;
+  height: auto;
+  margin: 0 auto;
   text-align: center;
   background: #eceef1;
   border-radius: 4px;
+  margin-top: 10%;
 }
 .form-title {
   font-size: 30px;
@@ -19,7 +19,8 @@
 }
 .form-container > form {
   margin: 0 auto;
-  margin-top: 5%;
+  margin-top: 2%;
+  padding: 35px;
 }
 .form-submit-btn {
   margin-top: 15px;
@@ -52,4 +53,13 @@
 .input-label {
   display: inline-block;
   width: 115px;
+}
+.error-holder {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  margin-top: 7px;
+}
+.error-holder li {
+  color: red;
 }

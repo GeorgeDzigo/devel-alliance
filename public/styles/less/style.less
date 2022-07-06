@@ -9,12 +9,12 @@
    
     &-container {
         width: 500px;
-        height: 560px;
-        margin-left: 32%;
-        margin-top: 10%;
+        height: auto;
+        margin: 0 auto;
         text-align: center;
         background: @form-background-color;
         border-radius: 4px;
+        margin-top: 10%;
     }
     
     &-title {
@@ -26,7 +26,8 @@
 
     &-container > form {
         margin: 0 auto;
-        margin-top: 5%;
+        margin-top: 2%;
+        padding: 35px;
     }
 
     &-submit-btn {
@@ -65,5 +66,16 @@
     &-label {
         display: inline-block;
         width: 115px;
+    }
+}
+
+.error-holder {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-top: 7px;
+
+    li {
+        color: red;
     }
 }

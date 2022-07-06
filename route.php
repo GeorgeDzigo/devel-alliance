@@ -11,5 +11,5 @@ $router->get('/', function() use($root) {
 });
 
 $router->post('/sign-up', function($request) {
-    var_dump($_POST);
+    return json_encode($_POST);
 });
