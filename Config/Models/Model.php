@@ -50,4 +50,37 @@ class Model
     $stmt = $this->pdo->prepare($sql);
     return $stmt->execute($tData);
   }
+
+  /**
+   * Search for information
+   */ 
+
+   public function where($col, $equals) {
+    $sql = "SELECT * FROM " . $this->tableName . " WHERE $col = '$equals'";
+    
+    $stmt = $this->pdo->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+   }
+
+  /**
+   * Get all the info from $this->tableName
+   */  
+  public function all() {
+    $sql = "SELECT * FROM $this->tableName";
+
+    $stmt = $this->pdo->query($sql);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * Delete the record
+   */ 
+  public function delete($col, $equals) {
+    $sql = "DELETE FROM $this->tableName WHERE $col = '$equals'";
+
+    $stmt = $this->pdo->query($sql);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 }

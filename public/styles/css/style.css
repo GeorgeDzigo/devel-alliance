@@ -9,7 +9,7 @@
   text-align: center;
   background: #eceef1;
   border-radius: 4px;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 .form-title {
   font-size: 30px;
@@ -82,4 +82,31 @@
   top: 100px;
   display: inline-block;
   margin-top: 14%;
+}
+#general {
+  display: block;
+}
+.registered-users-wrapper {
+  width: 100%;
+  height: auto;
+}
+.registered-users-container {
+  width: 78%;
+  margin: 0 auto;
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+.registered-users-table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.registered-users-th,
+.registered-users-td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+.registered-users-tr:nth-child(even) {
+  background-color: #dddddd;
 }

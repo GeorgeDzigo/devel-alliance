@@ -155,6 +155,8 @@ function hideErrors() {
     input.element.css("outline-style", "none");
     input.element.parent(".input-wrapper").find(".error-holder").html("");
   });
+
+  $("#general").html("");
 }
 
 function prepareData(datas) {
@@ -169,10 +171,10 @@ function prepareData(datas) {
 
 function setName(firstname) {
   $.ajax({
-    type: 'POST',
-    url: '/setname',
-    data: {firstname: firstname}
-  })
+    type: "POST",
+    url: "/setname",
+    data: { firstname: firstname },
+  });
 }
 
 $("#sign-up").submit(function (e) {
@@ -199,15 +201,35 @@ $("#sign-up").submit(function (e) {
       url: "/sign-up",
       data: dataTosend,
       success: function (data, text) {
-        if (data) {
+        data = JSON.parse(data);
+        if (data[0]) {
           let firstname = inputs[0].element.val();
           alert("Hello " + firstname);
           setName(firstname);
           window.location.replace("http://127.0.0.1:8000/welcome");
         } else {
-          alert("Something went wrong");
+          $("#general").append("<li>" + data[1] + "</li>");
         }
+      },
+      error: function (data, _) {
+        alert("Something Went wrong: " + data.status + " " + data.statusText);
       },
     });
   }
 });
+
+function removeUser(userId) {
+  $.ajax({
+    type: "POST",
+    url: "/delete",
+    data: { user_id: userId },
+    success: function (data, text) {
+      data = JSON.parse(data);
+      alert(data[0]);
+      document.getElementById("user_col_" + userId).remove();
+    },
+    error: function (err) {
+      alert("Something went wrong while deleting an user");
+    },
+  });
+}
